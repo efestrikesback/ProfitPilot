@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: postgres
+    image: postgres
+    ports:
+      - 3001:5432
+    environment:
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: devcomReborn
+      POSTGRES_USER: postgres
+      #volumes:
+       # - ./pgdata:/var/lib/postgresql/data
+    restart: always
+
+  backend:
+    container_name: backend
+    build:
+      dockerfile: Backend.Dockerfile
+    ports:
+      - 8080:8080
+    environment:
+      db_url: jdbc:postgresql://db:5432/profitpilot
+      db_username: postgres
+      db_password: 123
+    depends_on:
+      - db
+    restart: always
+
+  frontend:
+    container_name: frontend
+    build:
+      dockerfile: ./../profitpilot-frontend/Frontend.Dockerfile
+      context: ./../profitpilot-frontend
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+    restart: always

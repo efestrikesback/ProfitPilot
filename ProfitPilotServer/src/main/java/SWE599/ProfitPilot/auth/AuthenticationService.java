@@ -5,9 +5,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import swe574.backend.devcomReborn.jwt.JwtService;
-import swe574.backend.devcomReborn.user.User;
-import swe574.backend.devcomReborn.user.UserRepository;
+import SWE599.ProfitPilot.jwt.JwtService;
+import SWE599.ProfitPilot.user.User;
+import SWE599.ProfitPilot.user.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 
 @Service
