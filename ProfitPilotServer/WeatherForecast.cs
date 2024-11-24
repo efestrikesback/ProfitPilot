@@ -1,4 +1,4 @@
-namespace ProfitPilot
+namespace ProfitPilotServer
 {
     public class WeatherForecast
     {

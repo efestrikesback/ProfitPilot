@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace ProfitPilot.Controllers
+namespace ProfitPilotServer.Controllers
 {
     [ApiController]
     [Route("[controller]")]
