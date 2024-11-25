@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface TradeService {
     List<Trade> getTradesByUser(User user);
-    Map<String, Object> performRiskAssessment(User user);
+    Map<String, Object> performRiskAssessment();
     Map<String, Object> analyzeTradeStyles(User user);
     Map<String, Object> generatePersonalInsights(User user);
 }

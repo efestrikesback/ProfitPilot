@@ -13,8 +13,14 @@ const Dashboard = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+            if (!token) {
+                setError('No authentication token found. Please log in.');
+                return;
+            }
+
             const headers = {
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
             };
 
             try {
@@ -27,14 +33,20 @@ const Dashboard = () => {
                 setRisk(riskRes.data);
                 setStyles(stylesRes.data);
                 setInsights(insightsRes.data);
+                setError('');
             } catch (err) {
-                setError('Failed to fetch data. Please try again.');
+                if (err.response && err.response.status === 401) {
+                    setError('Unauthorized access. Please log in again.');
+                    logout();
+                } else {
+                    setError('Failed to fetch data. Please try again.');
+                }
                 console.error(err);
             }
         };
 
         fetchData();
-    }, [token]);
+    }, [token, logout]);
 
     return (
         <div style={styles.container}>

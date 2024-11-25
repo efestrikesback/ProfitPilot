@@ -2,6 +2,7 @@ package SWE599.ProfitPilot.trade;
 
 import SWE599.ProfitPilot.user.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -18,7 +19,8 @@ public class TradeServiceImpl implements TradeService {
     }
 
     @Override
-    public Map<String, Object> performRiskAssessment(User user) {
+    public Map<String, Object> performRiskAssessment() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Trade> trades = getTradesByUser(user);
         double totalTrades = trades.size();
         double profitableTrades = trades.stream().filter(t -> t.getProfitLoss() > 0).count();

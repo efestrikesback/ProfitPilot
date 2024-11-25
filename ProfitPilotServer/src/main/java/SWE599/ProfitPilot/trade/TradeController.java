@@ -3,13 +3,15 @@ package SWE599.ProfitPilot.trade;
 import SWE599.ProfitPilot.user.User;
 import SWE599.ProfitPilot.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.bridge.MessageUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/trades")
+@CrossOrigin
+@RequestMapping("/trades")
 @RequiredArgsConstructor
 public class TradeController {
 
@@ -23,9 +25,8 @@ public class TradeController {
     }
 
     @GetMapping("/risk-assessment")
-    public ResponseEntity<Map<String, Object>> getRiskAssessment(Authentication authentication) {
-        User user = getAuthenticatedUser(authentication);
-        Map<String, Object> riskAssessment = tradeService.performRiskAssessment(user);
+    public ResponseEntity<Map<String, Object>> getRiskAssessment() {
+        Map<String, Object> riskAssessment = tradeService.performRiskAssessment();
         return ResponseEntity.ok(riskAssessment);
     }
 
