@@ -22,7 +22,7 @@ public class MockTradeDataGenerator {
     private final TradeRepository tradeRepository;
     private final UserRepository userRepository;
 
-    // Define trading pairs with realistic price ranges and volatility
+    // Define trading pairs with price ranges and volatility
     private final List<TradingPairConfig> tradingPairs = List.of(
             new TradingPairConfig("BTCUSDT", 50000.0, 60000.0, 1000.0),
             new TradingPairConfig("ETHUSDT", 3000.0, 4000.0, 200.0),

@@ -17,9 +17,7 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // Check if the database is empty
         if (userRepository.count() == 0) {
-            // Create default users with all required fields
             User user1 = User.builder()
                     .firstname("Efe")
                     .lastname("Gocmen")
