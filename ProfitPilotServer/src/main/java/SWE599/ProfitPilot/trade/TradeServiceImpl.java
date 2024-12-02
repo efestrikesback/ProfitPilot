@@ -61,7 +61,7 @@ public class TradeServiceImpl implements TradeService {
             double total = styleTrades.size();
             double profitable = styleTrades.stream().filter(t -> t.getProfitLoss() > 0).count();
             double successRate = (profitable / total) * 100;
-            insights.put(style + "SuccessRate", successRate);
+            insights.put(style + " SuccessRate", successRate);
         }
 
         return insights;
