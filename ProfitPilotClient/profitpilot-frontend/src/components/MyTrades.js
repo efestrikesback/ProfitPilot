@@ -13,7 +13,7 @@ const MyTrades = () => {
   useEffect(() => {
     const fetchTrades = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/my-trades', {
+        const response = await axios.get('http://localhost:8080/trades/my-trades', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
