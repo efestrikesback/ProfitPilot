@@ -7,4 +7,10 @@ Develop and refine trading applications without dependency on live data.
 
 ![image](https://github.com/user-attachments/assets/fc8ae892-f67a-4f51-84de-9a9e164d5d80)
 
-![image](https://github.com/user-attachments/assets/984d9e3f-0365-49f1-9185-6c033aa2141a)
+![image](https://github.com/user-attachments/assets/cb0db5ea-ff32-43fe-8a6d-ac1fdf1f9f41)
+
+
+
+![image](https://github.com/user-attachments/assets/5e15f502-6cbc-4abc-a1a0-94cc848aa497)
+
+
