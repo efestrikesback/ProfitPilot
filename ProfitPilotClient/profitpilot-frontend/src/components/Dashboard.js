@@ -106,6 +106,7 @@ const Dashboard = () => {
             <Nav className="ms-auto">
               <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
               <Nav.Link as={Link} to="/my-trades">My Trades</Nav.Link>
+              <Nav.Link as={Link} to="/market">Market</Nav.Link>
               <Nav.Link onClick={logout}>Logout</Nav.Link>
             </Nav>
           </Navbar.Collapse>

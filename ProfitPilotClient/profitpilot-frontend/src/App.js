@@ -6,6 +6,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import MyTrades from './components/MyTrades';
+import Market from './components/Market';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthContext } from './context/AuthContext';
 
@@ -33,6 +34,14 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/market"
+          element={
+            <ProtectedRoute>
+              <Market />
+            </ProtectedRoute>
+          }
+        />        
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
