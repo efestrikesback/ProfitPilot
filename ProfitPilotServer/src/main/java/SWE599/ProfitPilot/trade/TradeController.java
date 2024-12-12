@@ -1,5 +1,6 @@
 package SWE599.ProfitPilot.trade;
 
+import SWE599.ProfitPilot.mockData.DataResetService;
 import SWE599.ProfitPilot.user.User;
 import SWE599.ProfitPilot.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,8 @@ import java.util.Map;
 public class TradeController {
 
     private final TradeService tradeService;
+
+    private final DataResetService dataResetService;
     private final UserRepository userRepository;
 
     // Helper method to get the authenticated user
@@ -65,5 +68,11 @@ public class TradeController {
         User user = getAuthenticatedUser(authentication);
         List<Trade> worstTrades = tradeService.getTop3LosingTrades(user);
         return ResponseEntity.ok(worstTrades);
+    }
+
+    @DeleteMapping("/reload")
+    public ResponseEntity<String> reloadTrades(Authentication authentication) {
+        dataResetService.resetAndRegenerateTrades();
+        return ResponseEntity.ok("Trades have been cleared and new mock trades generated.");
     }
 }

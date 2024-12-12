@@ -21,44 +21,46 @@ const Dashboard = () => {
   const [bestTrades, setBestTrades] = useState([]);
   const [worstTrades, setWorstTrades] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!token) {
-        setError('No authentication token found. Please log in.');
-        return;
-      }
+  const [reloadMessage, setReloadMessage] = useState('');
 
-      const headers = {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      };
+  const fetchData = async () => {
+    if (!token) {
+      setError('No authentication token found. Please log in.');
+      return;
+    }
 
-      try {
-        const [riskRes, stylesRes, insightsRes, bestRes, worstRes] = await Promise.all([
-          axios.get('http://localhost:8080/trades/risk-assessment', { headers }),
-          axios.get('http://localhost:8080/trades/trade-styles', { headers }),
-          axios.get('http://localhost:8080/trades/personal-insights', { headers }),
-          axios.get('http://localhost:8080/trades/best-trades', { headers }),
-          axios.get('http://localhost:8080/trades/worst-trades', { headers })
-        ]);
-
-        setRisk(riskRes.data);
-        setStylesData(stylesRes.data);
-        setInsights(insightsRes.data);
-        setBestTrades(bestRes.data);
-        setWorstTrades(worstRes.data);
-        setError('');
-      } catch (err) {
-        if (err.response && err.response.status === 401) {
-          setError('Unauthorized access. Please log in again.');
-          logout();
-        } else {
-          setError('Failed to fetch data. Please try again.');
-        }
-        console.error(err);
-      }
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
     };
 
+    try {
+      const [riskRes, stylesRes, insightsRes, bestRes, worstRes] = await Promise.all([
+        axios.get('http://localhost:8080/trades/risk-assessment', { headers }),
+        axios.get('http://localhost:8080/trades/trade-styles', { headers }),
+        axios.get('http://localhost:8080/trades/personal-insights', { headers }),
+        axios.get('http://localhost:8080/trades/best-trades', { headers }),
+        axios.get('http://localhost:8080/trades/worst-trades', { headers })
+      ]);
+
+      setRisk(riskRes.data);
+      setStylesData(stylesRes.data);
+      setInsights(insightsRes.data);
+      setBestTrades(bestRes.data);
+      setWorstTrades(worstRes.data);
+      setError('');
+    } catch (err) {
+      if (err.response && err.response.status === 401) {
+        setError('Unauthorized access. Please log in again.');
+        logout();
+      } else {
+        setError('Failed to fetch data. Please try again.');
+      }
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
     fetchData();
   }, [token, logout]);
 
@@ -201,6 +203,38 @@ const Dashboard = () => {
     );
   };
 
+  // Function to call the reload trades API
+  const handleReloadTrades = async () => {
+    if (!token) {
+      setError('No authentication token found. Please log in.');
+      return;
+    }
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    };
+
+    try {
+      const response = await axios.delete('http://localhost:8080/trades/reload', { headers });
+      setReloadMessage(response.data); // "Trades have been cleared and new mock trades generated."
+      setError('');
+      // After success, refresh the page to update displayed data
+      // A short timeout can make the message visible for a moment before reload
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000); 
+    } catch (err) {
+      setReloadMessage('');
+      if (err.response && err.response.status === 401) {
+        setError('Unauthorized access. Please log in again.');
+        logout();
+      } else {
+        setError('Failed to reload trades. Please try again.');
+      }
+      console.error(err);
+    }
+  };
+
   return (
     <>
       <Navbar bg="light" expand="lg">
@@ -223,6 +257,7 @@ const Dashboard = () => {
         <p>Welcome, {user?.firstname} {user?.lastname}!</p>
 
         {error && <Alert variant="danger">{error}</Alert>}
+        {reloadMessage && <Alert variant="success">{reloadMessage}</Alert>}
 
         <Row>
           <Col md={6}>
@@ -269,6 +304,17 @@ const Dashboard = () => {
           <Card.Header>Top 3 Worst Trades</Card.Header>
           <Card.Body>
             {renderBestWorstTable(worstTrades)}
+          </Card.Body>
+        </Card>
+
+        {/* Button to reset trading data */}
+        <Card className="mb-4">
+          <Card.Header>Reset Trading Data</Card.Header>
+          <Card.Body>
+            <Button variant="warning" onClick={handleReloadTrades}>
+              Delete and Regenerate Trades
+            </Button>
+            <p className="mt-2">Clicking this will remove all current trades and generate new mock data.</p>
           </Card.Body>
         </Card>
 
