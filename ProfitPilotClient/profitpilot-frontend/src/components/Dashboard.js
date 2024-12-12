@@ -1,7 +1,9 @@
+// src/components/Dashboard.js
+
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
-import { Container, Alert, Navbar, Nav, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Alert, Navbar, Nav, Row, Col, Card, Table, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 // Import Chart components
@@ -104,7 +106,7 @@ const Dashboard = () => {
     }
 
     return (
-      <table className="table table-striped table-bordered table-hover table-responsive">
+      <Table striped bordered hover responsive>
         <thead>
           <tr>
             <th>Asset</th>
@@ -133,7 +135,7 @@ const Dashboard = () => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     );
   };
 
@@ -141,9 +143,9 @@ const Dashboard = () => {
     if (!insights || Object.keys(insights).length === 0) {
       return <p>No personal insights available.</p>;
     }
-  
+
     return (
-      <ul>
+      <ul style={{ listStyleType: 'none', paddingLeft: '0' }}>
         {Object.entries(insights).map(([key, value]) => {
           const percentage = parseFloat(value);
           let color = 'black';
@@ -157,21 +159,39 @@ const Dashboard = () => {
             // between 30 and 40 inclusive
             color = 'red';
           }
-  
+
           // Extract style name from key
           const [styleName] = key.split(' ');
           const friendlyStyleName = styleName.replace('_', ' ').toLowerCase();
-  
+
           return (
-            <li key={key} style={{ color }}>
-              {`${key}: ${percentage.toFixed(2)}%`}
+            <li key={key} style={{ marginBottom: '5px' }}>
+              {/* Colored bullet */}
+              <span
+                style={{
+                  display: 'inline-block',
+                  width: '10px',
+                  height: '10px',
+                  backgroundColor: color,
+                  borderRadius: '50%',
+                  marginRight: '5px',
+                  verticalAlign: 'middle'
+                }}
+              ></span>
+              {/* Text showing style and percentage */}
+              <span style={{ verticalAlign: 'middle', color: color }}>
+                {`${key}: ${percentage.toFixed(2)}%`}
+              </span>
+              {/* If percentage < 40% for any style, show button */}
               {percentage < 40 && (
                 <Button
                   as={Link}
-                  to="/trading-guide"
-                  style={{ marginLeft: '10px' }}
+                  to={`/trading-guide?style=${friendlyStyleName}`}
+                  variant="primary"
+                  size="sm"
+                  style={{ marginLeft: '10px', verticalAlign: 'middle' }}
                 >
-                  Want to get better at {friendlyStyleName}?
+                  Want to be a better at {friendlyStyleName}?
                 </Button>
               )}
             </li>
@@ -180,7 +200,6 @@ const Dashboard = () => {
       </ul>
     );
   };
-  
 
   return (
     <>
