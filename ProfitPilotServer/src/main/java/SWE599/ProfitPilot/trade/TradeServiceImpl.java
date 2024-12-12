@@ -66,4 +66,22 @@ public class TradeServiceImpl implements TradeService {
 
         return insights;
     }
+
+    @Override
+    public List<Trade> getTop3ProfitableTrades(User user) {
+        List<Trade> trades = getTradesByUser(user);
+        return trades.stream()
+                .sorted((a, b) -> Double.compare(b.getProfitLoss(), a.getProfitLoss()))
+                .limit(3)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Trade> getTop3LosingTrades(User user) {
+        List<Trade> trades = getTradesByUser(user);
+        return trades.stream()
+                .sorted(Comparator.comparingDouble(Trade::getProfitLoss))
+                .limit(3)
+                .collect(Collectors.toList());
+    }
 }

@@ -52,4 +52,18 @@ public class TradeController {
         List<Trade> trades = tradeService.getTradesByUser(user);
         return ResponseEntity.ok(trades);
     }
+
+    @GetMapping("/best-trades")
+    public ResponseEntity<List<Trade>> getBestTrades(Authentication authentication) {
+        User user = getAuthenticatedUser(authentication);
+        List<Trade> bestTrades = tradeService.getTop3ProfitableTrades(user);
+        return ResponseEntity.ok(bestTrades);
+    }
+
+    @GetMapping("/worst-trades")
+    public ResponseEntity<List<Trade>> getWorstTrades(Authentication authentication) {
+        User user = getAuthenticatedUser(authentication);
+        List<Trade> worstTrades = tradeService.getTop3LosingTrades(user);
+        return ResponseEntity.ok(worstTrades);
+    }
 }

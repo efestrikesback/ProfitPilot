@@ -10,4 +10,6 @@ public interface TradeService {
     Map<String, Object> performRiskAssessment();
     Map<String, Object> analyzeTradeStyles(User user);
     Map<String, Object> generatePersonalInsights(User user);
+    List<Trade> getTop3ProfitableTrades(User user);
+    List<Trade> getTop3LosingTrades(User user);
 }
