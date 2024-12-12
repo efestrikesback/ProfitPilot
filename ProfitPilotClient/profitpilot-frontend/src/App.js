@@ -1,5 +1,3 @@
-// src/App.js
-
 import React, { useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/Login';
@@ -8,6 +6,7 @@ import Dashboard from './components/Dashboard';
 import MyTrades from './components/MyTrades';
 import Market from './components/Market';
 import ProtectedRoute from './components/ProtectedRoute';
+import TradingGuide from './components/TradingGuide';
 import { AuthContext } from './context/AuthContext';
 
 function App() {
@@ -39,6 +38,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Market />
+            </ProtectedRoute>
+          }
+        />
+                <Route
+          path="/trading-guide"
+          element={
+            <ProtectedRoute>
+              <TradingGuide />
             </ProtectedRoute>
           }
         />        

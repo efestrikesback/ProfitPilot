@@ -140,6 +140,7 @@ const MyTrades = () => {
               <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
               <Nav.Link as={Link} to="/my-trades">My Trades</Nav.Link>
               <Nav.Link as={Link} to="/market">Market</Nav.Link>
+              <Nav.Link as={Link} to="/trading-guide">Trading Guide</Nav.Link>
               <Nav.Link onClick={logout}>Logout</Nav.Link>
             </Nav>
           </Navbar.Collapse>
@@ -164,7 +165,7 @@ const MyTrades = () => {
               </Form.Select>
             </Form.Group>
           </Col>
-          
+
           <Col md={4}>
             <Form.Group controlId="tradeStyleFilter">
               <Form.Label>Select Trade Style:</Form.Label>
@@ -178,7 +179,7 @@ const MyTrades = () => {
               </Form.Select>
             </Form.Group>
           </Col>
-          
+
           <Col md={4}>
             <Form.Group controlId="profitLossFilter">
               <Form.Label>Show:</Form.Label>

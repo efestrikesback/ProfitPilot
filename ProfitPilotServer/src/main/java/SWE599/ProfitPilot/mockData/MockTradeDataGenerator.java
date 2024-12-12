@@ -24,7 +24,7 @@ public class MockTradeDataGenerator {
 
     // Define trading pairs with price ranges and volatility
     private final List<TradingPairConfig> tradingPairs = List.of(
-            new TradingPairConfig("BTCUSDT", 50000.0, 60000.0, 1000.0),
+            new TradingPairConfig("BTCUSDT", 90000.0, 100000.0, 1000.0),
             new TradingPairConfig("ETHUSDT", 3000.0, 4000.0, 200.0),
             new TradingPairConfig("XRPUSDT", 1.0, 2.0, 0.1),
             new TradingPairConfig("LTCUSDT", 150.0, 250.0, 10.0),
