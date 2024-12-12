@@ -12,8 +12,7 @@ const TradingGuide = () => {
   const queryParams = new URLSearchParams(location.search);
   const styleParam = queryParams.get('style'); // e.g. "swing trading", "day trading", "scalp trading"
 
-  // Determine defaultActiveKey based on styleParam
-  let defaultActiveKey = '0'; // default to day trading if none provided
+  let defaultActiveKey = '0'; // day trading by default
   if (styleParam) {
     const lowerStyle = styleParam.toLowerCase();
     if (lowerStyle.includes('day')) {
@@ -24,6 +23,20 @@ const TradingGuide = () => {
       defaultActiveKey = '2';
     }
   }
+
+  // A helper component for responsive video embedding
+  const ResponsiveVideo = ({ src }) => (
+    <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, marginBottom: '20px' }}>
+      <iframe
+        src={src}
+        title="YouTube video player"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+        style={{ position: 'absolute', top:0, left:0, width:'100%', height:'100%' }}
+      ></iframe>
+    </div>
+  );
 
   return (
     <>
@@ -53,6 +66,7 @@ const TradingGuide = () => {
             <p>Explore the different trading strategies below. Click on each one to expand and learn more:</p>
             
             <Accordion defaultActiveKey={defaultActiveKey} alwaysOpen>
+              {/* Day Trading Guide */}
               <Accordion.Item eventKey="0">
                 <Accordion.Header>Day Trading Guide</Accordion.Header>
                 <Accordion.Body>
@@ -64,11 +78,15 @@ const TradingGuide = () => {
                     <li>Manage risk by setting stop-loss orders and position sizing.</li>
                     <li>Use technical analysis tools like moving averages, RSI, and MACD for quick decision making.</li>
                   </ul>
-                  <h5>Recommended Resources</h5>
-                  <p>Check out online courses, webinars, and books on day trading. For more detailed guides, stay tuned as we populate this section with curated materials.</p>
+
+                  <h5>Recommended Resources (Videos)</h5>
+                  {/* Day Trading Links */}
+                  <ResponsiveVideo src="https://www.youtube.com/embed/DRAcPbYPNVk" />
+                  <ResponsiveVideo src="https://www.youtube.com/embed/QstdS67Iyv0?list=PL1xI23WKVWifg6nqTu2sMZVF8nWfQ8udX" />
                 </Accordion.Body>
               </Accordion.Item>
 
+              {/* Swing Trading Guide */}
               <Accordion.Item eventKey="1">
                 <Accordion.Header>Swing Trading Guide</Accordion.Header>
                 <Accordion.Body>
@@ -80,24 +98,32 @@ const TradingGuide = () => {
                     <li>Set realistic profit targets and adjust stop-losses to lock in profits.</li>
                     <li>Combine fundamental and technical analysis for a more informed approach.</li>
                   </ul>
-                  <h5>Recommended Resources</h5>
-                  <p>Books, newsletters, and educational videos focusing on intermediate-term strategies will be added here soon.</p>
+
+                  <h5>Recommended Resources (Videos)</h5>
+                  {/* Swing Trading Links */}
+                  <ResponsiveVideo src="https://www.youtube.com/embed/KO7lX7-Fi7U" />
+                  <ResponsiveVideo src="https://www.youtube.com/embed/o6MOQEzXwuM" />
+                  <ResponsiveVideo src="https://www.youtube.com/embed/cyTeIilsUcs" />
                 </Accordion.Body>
               </Accordion.Item>
 
+              {/* Scalp Trading Guide */}
               <Accordion.Item eventKey="2">
                 <Accordion.Header>Scalp Trading Guide</Accordion.Header>
                 <Accordion.Body>
                   <h5>Introduction</h5>
                   <p>Scalping involves taking advantage of very small price changes, typically within minutes or seconds, and accumulating profits over multiple trades.</p>
                   <ul>
-                    <li>Focus on highly liquid markets.</li>
+                    <li>Focus on highly liquid markets (major forex pairs, large cap stocks, or highly traded cryptos).</li>
                     <li>Use Level II order book data for precise entries and exits.</li>
-                    <li>Keep trades short to minimize exposure.</li>
+                    <li>Keep trades short to minimize exposure to sudden market swings.</li>
                     <li>Develop fast execution skills and consider using trading bots or advanced order types.</li>
                   </ul>
-                  <h5>Recommended Resources</h5>
-                  <p>We will add recommended tools, platforms, and charting techniques for scalping in the near future.</p>
+
+                  <h5>Recommended Resources (Videos)</h5>
+                  {/* Scalp Trading Links */}
+                  <ResponsiveVideo src="https://www.youtube.com/embed/XBcMiYK7qYY" />
+                  <ResponsiveVideo src="https://www.youtube.com/embed/-0slMH7N6eI" />
                 </Accordion.Body>
               </Accordion.Item>
             </Accordion>
